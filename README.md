@@ -26,7 +26,7 @@ hmeasure==0.1.6
 │   └── networks_list.xlsx # Dataset List  
 ├── discriminability/  
 │   ├── single/            # Discriminability of metrics in single network  
-│   ├── category/           # Discriminability of metrics in domain networks  
+│   ├── domain/           # Discriminability of metrics in domain networks  
 │   ├── discriminability_single.py    # Calculate discriminability of metrics in single network  
 │   └── discriminability_domain.py   # Calculate discriminability of metrics in domain networks  
 ├── results/               # Evaluation metrics scores  
@@ -48,7 +48,7 @@ python run.py  # Generates evaluation metrics scores
 
 ### 3. Discriminability calculating
 python discriminability/discriminability_single.py    # Calculate discriminability of metrics in single network  
-python discriminability/discriminability_category.py   # Calculate discriminability of metrics in domain's networks  
+python discriminability/discriminability_domain.py   # Calculate discriminability of metrics in domain's networks  
 
 ---
 
