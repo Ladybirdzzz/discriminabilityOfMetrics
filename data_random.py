@@ -24,9 +24,9 @@ for row in worksheet.iter_rows(min_row=2,values_only=True):
         G.add_edges_from(edge_index)
     else:
         network=dataset
-        G = nx.read_edgelist('networks/{}.txt'.format(dataset), create_using=nx.Graph)
+        G = nx.read_edgelist('networks/edges/{}.txt'.format(dataset), create_using=nx.Graph)
     print(network)
-    statistic_path= 'networks/statistics/{0}/statistic/'.format(network)
+    statistic_path= 'networks/statistics/{0}/'.format(network)
     if not os.path.exists(statistic_path):
         os.makedirs(statistic_path)
     A=nx.to_numpy_array(G)

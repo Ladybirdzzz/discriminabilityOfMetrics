@@ -19,15 +19,15 @@ for row in worksheet.iter_rows(min_row=2, values_only=True):
     network = row[0]
     if network.isdigit():
         network = 'Benchmark_{}'.format(network)
-    statistic_path = 'networks/statistics/{0}/statistic/'.format(network)
+    statistic_path = 'networks/statistics/{0}/'.format(network)
     edge_index=np.load(statistic_path + '{0}_edge_index.npy'.format(network))
 
-    path = 'result/{0}/'.format(network)
+    path = 'results/{0}/'.format(network)
     file_dict = {}
     for alg in algorithms:
         if not os.path.exists(path + alg):
             os.makedirs(path + alg)
-        file_path = 'result/{0}/{1}/details.txt'.format(network, alg)
+        file_path = 'results/{0}/{1}/details.txt'.format(network, alg)
         file_object = open(file_path, mode='w')
         file_dict[alg] = file_object
 

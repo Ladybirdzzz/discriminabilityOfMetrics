@@ -4,14 +4,14 @@ import pandas as pd
 
 df = pd.read_excel('../networks/networks_list.xlsx')
 
-category={'All':[], 'Social':[],'Informational':[],'Biological':[],'Economic':[],'Technological':[],'Transportation':[]}
+domain={'All':[], 'Social':[],'Informational':[],'Biological':[],'Economic':[],'Technological':[],'Transportation':[]}
 
 datasets = df.values
 for dataset in datasets:
     if dataset[0].isdigit():
         dataset[0] = 'Benchmark_{}'.format(dataset[0])
-    category['All'].append(dataset[0])
-    category[dataset[1]].append(dataset[0])
+    domain['All'].append(dataset[0])
+    domain[dataset[1]].append(dataset[0])
 
 metrics = ['prec', 'auc_prec', 'auc_pr', 'auc_roc', 'auc_mroc', 'ndcg', 'mcc', 'h_measure']
 lps = ['CN', 'RA', 'JA', 'PA', 'CH2', 'CN3', 'RA3', 'CH3', 'LRW', 'SRW', 'KA', 'MFI', 'SR', 'NMF', 'DW', 'N2V',
@@ -58,8 +58,8 @@ def calculate_average(file_paths):
     return new_file
 
 
-for key,datasets in category.items():
+for key,datasets in domain.items():
     if not datasets:
         continue
     result_file = calculate_average(datasets)
-    result_file.save('category/{}_discriminability.xlsx'.format(key))
+    result_file.save('domain/{}_discriminability.xlsx'.format(key))

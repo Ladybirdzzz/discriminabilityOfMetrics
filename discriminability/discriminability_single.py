@@ -22,7 +22,7 @@ for dataset in datasets:
         dis_count_matrix = np.zeros((len(metrics), eta, eta), dtype=float)
         print(network, lp)
         data = dict()
-        with open('../result/{0}/{1}/details.txt'.format(network, lp), 'r') as f:
+        with open('../results/{0}/{1}/details.txt'.format(network, lp), 'r') as f:
             lines = f.readlines()
             for line in lines:
                 line = line.strip('\n').split(' ')
