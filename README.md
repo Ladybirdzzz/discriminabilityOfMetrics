@@ -84,4 +84,3 @@ Dataformat of each row: [run, p, Precision, AUC-Precision, AUPR, AUC, AUC-mROC, 
   - `single/A_discriminability.xlsx`:  Discriminability of metrics in network A  
   - `domain/C_discriminability.xlsx`:  Discriminability of metrics in networks of domain C  
   Dataformat of each sheet: **columns**-Value of p, in [0.01, 0.02, ... ,0.1]; **rows**-Metrics, the order matches details.txt
-
