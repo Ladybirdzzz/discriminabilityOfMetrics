@@ -13,29 +13,36 @@ from modules.MyVGNAE import MyVGNAE
 
 # --------------------------------------------
 def Common_Neighbors(matrix, pred_index):
-    sim_matrix = np.dot(matrix, matrix)
-    return np.array([sim_matrix[u][v] for [u, v] in pred_index])
+    sim_matrix = matrix @ matrix
+    u, v = pred_index[:, 0], pred_index[:, 1]
+    return sim_matrix[u, v]
 
 
-# --------------------------------------------
 def Resource_Allocation(matrix, pred_index):
-    add_row = np.sum(matrix, axis=1)
-    add_row = add_row[:, np.newaxis]
-    sim_matrix = matrix / add_row
-    sim_matrix = np.nan_to_num(sim_matrix)
-    sim_matrix = np.dot(matrix, sim_matrix)
-    return np.array([sim_matrix[u][v] for [u, v] in pred_index])
+    degrees = np.sum(matrix, axis=1, keepdims=True)
+    weights = matrix / np.where(degrees > 0, degrees, np.inf)
+    weights = np.nan_to_num(weights, nan=0.0)
+    sim_matrix = matrix @ weights
+    u, v = pred_index[:, 0], pred_index[:, 1]
+    return sim_matrix[u, v]
 
 
-# -------------------------------------------
 def Jaccard(matrix, pred_index):
-    CN = np.dot(matrix, matrix)
-    union = CN * (1 - np.eye(matrix.shape[0]))
-    sim_matrix = np.divide(CN, union, out=np.zeros_like(matrix), where=(union != 0))
-    return np.array([sim_matrix[u][v] for [u, v] in pred_index])
+    CN = matrix @ matrix
+    degrees = np.sum(matrix, axis=1)
+    deg_sum = degrees.reshape(1, -1) + degrees.reshape(-1, 1)
+    union = deg_sum - CN
+    sim_matrix = np.divide(
+        CN,
+        union,
+        out=np.zeros_like(CN, dtype=float),
+        where=(union != 0)
+    )
+    u_indices = pred_index[:, 0]
+    v_indices = pred_index[:, 1]
+    return sim_matrix[u_indices, v_indices]
 
 
-# --------------------------------------------
 def Katz(matrix, pred_index):
     parameter = 0.01
     eye = np.eye(matrix.shape[0])
@@ -46,9 +53,10 @@ def Katz(matrix, pred_index):
 
 
 def Preferential_Attachment(matrix, pred_index):
-    add_row = sum(matrix)
-    sim_matrix = np.outer(add_row, add_row)
-    return np.array([sim_matrix[u][v] for [u, v] in pred_index])
+    degrees = np.sum(matrix, axis=1)
+    sim_matrix = np.outer(degrees, degrees)
+    u, v = pred_index[:, 0], pred_index[:, 1]
+    return sim_matrix[u, v]
 
 
 def Cannistraci_Hebb_L2_L3(matrix, pred_index):

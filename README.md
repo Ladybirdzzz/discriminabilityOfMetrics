@@ -30,7 +30,7 @@ hmeasure==0.1.6
 │   ├── discriminability_single.py    # Calculate discriminability of metrics in single network  
 │   └── discriminability_domain.py   # Calculate discriminability of metrics in domain networks  
 ├── results/               # Evaluation metrics scores  
-├── data_random.py  # Discriminability of metrics in single network
+├── data_random.py  # Discriminability of metrics in single network  
 ├── link_prediction_algorithms.py # Algorithms used for link prediction  
 ├── metrics.py # Metrics used to evaluate link prediction  
 ├── run.py # Link prediction and metrics evaluating  
