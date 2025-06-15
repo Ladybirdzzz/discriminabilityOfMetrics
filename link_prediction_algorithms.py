@@ -10,7 +10,18 @@ from modules.MyGAT import MyGAT
 from modules.MySAGE import MySAGE
 from modules.MyVGNAE import MyVGNAE
 
-
+# input：
+# G: networkx.Graph, training set
+# pred_index: n*2 numpy.array, test edge set
+# model: name of GNN model used
+# node_num: number of nodes
+# train_num: number of edges in the training set
+# edge_index: n*2 numpy.array, all edge set (training and test)
+# test_mask: 1*n np.array, a binary mask selecting edges in edge_index for postive samples in the test set
+# train_mask: 1*n np.array, a binary mask selecting edges in edge_index for the training set
+# zero_index: 1*n np.array, a binary mask selecting edges in edge_index for negative samples (non-exist edges) in the test set
+# output：
+# 1*n np.array，scores of  edges in the test set
 # --------------------------------------------
 def Common_Neighbors(matrix, pred_index):
     sim_matrix = matrix @ matrix
